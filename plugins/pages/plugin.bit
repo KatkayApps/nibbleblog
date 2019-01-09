@@ -13,6 +13,11 @@ $_PLUGIN_CONFIG['DATA'] = array(
 // =====================================================================
 class PLUGIN_PAGES extends Plugin
 {
+	public function mySort($a, $b)
+	{		
+	return strcmp ($a['title'], $b['title']);
+	}
+	
 	public function blog_body()
 	{
 		global $pages;
@@ -23,6 +28,9 @@ class PLUGIN_PAGES extends Plugin
 
 		// Home
 		$html .= '<li><a href="'.HTML_PATH_ROOT.'">'.$Language->get('home').'</a></li>';
+
+                // sort pages by names
+		usort ($pages, array("PLUGIN_PAGES", "mySort"));
 
 		foreach($pages as $page)
 		{
